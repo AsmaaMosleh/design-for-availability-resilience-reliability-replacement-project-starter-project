@@ -1,0 +1,81 @@
+[ec2-user@ip-10-2-10-29 ~]$ sudo su
+[root@ip-10-2-10-29 ec2-user]# yum install mariadb
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package mariadb.x86_64 1:5.5.68-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===========================================================================================================================================================
+ Package                           Arch                             Version                                     Repository                            Size
+===========================================================================================================================================================
+Installing:
+ mariadb                           x86_64                           1:5.5.68-1.amzn2                            amzn2-core                           8.8 M
+
+Transaction Summary
+===========================================================================================================================================================
+Install  1 Package
+
+Total download size: 8.8 M
+Installed size: 49 M
+Is this ok [y/d/N]: y
+Downloading packages:
+mariadb-5.5.68-1.amzn2.x86_64.rpm                                                                                                   | 8.8 MB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                         1/1
+  Verifying  : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                         1/1
+
+Installed:
+  mariadb.x86_64 1:5.5.68-1.amzn2
+
+Complete!
+[root@ip-10-2-10-29 ec2-user]# mysql --version
+mysql  Ver 15.1 Distrib 5.5.68-MariaDB, for Linux (x86_64) using readline 5.1
+[root@ip-10-2-10-29 ec2-user]# exit
+exit
+[ec2-user@ip-10-2-10-29 ~]$ mysql --version
+mysql  Ver 15.1 Distrib 5.5.68-MariaDB, for Linux (x86_64) using readline 5.1
+[ec2-user@ip-10-2-10-29 ~]$ mysql -h udacity-readreplica.cizzebubm6vu.us-east-2.rds.amazonaws.com -u admin -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 50
+Server version: 8.0.28 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| udacity            |
++--------------------+
+5 rows in set (0.00 sec)
+
+MySQL [(none)]> use udacity;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [udacity]> INSERT INTO udacity_table (id,name,email) VALUES(1,"Ahmed","Ahmed123@gmail.com");
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+MySQL [udacity]> SELECT * FROM udacity_table;
++------+----------+----------------------------+
+| id   | username | email                      |
++------+----------+----------------------------+
+|    1 | Asmaa    | asmaa.mosleh2014@gmail.com |
++------+----------+----------------------------+
+1 row in set (0.00 sec)
+
+MySQL [udacity]> Ctrl-C -- exit!
+Aborted
